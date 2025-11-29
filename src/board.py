@@ -26,7 +26,7 @@ class Board:
 
     def __str__(self):
         """
-        Representación bonita del tablero.
+        Representación visual del tablero.
         """
         rows = []
         for r in range(self.size):
