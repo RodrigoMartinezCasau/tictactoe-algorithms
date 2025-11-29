@@ -1,0 +1,42 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- Virtual environments ----
+env/
+venv/
+.venv/
+
+# ---- Distribution / packaging ----
+build/
+dist/
+*.egg-info/
+*.egg
+
+# ---- IDE / Editor ----
+.vscode/
+.idea/
+
+# ---- MacOS junk ----
+.DS_Store
+
+# ---- Byte-compiled / optimized files ----
+*.so
+
+# ---- Logs ----
+*.log
+
+# ---- Unit test cache ----
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ---- Ignore local environment files ----
+.env
+*.env
+
+# ---- Backup files ----
+*.bak
+*.swp
+*.swo
