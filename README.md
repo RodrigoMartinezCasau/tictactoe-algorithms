@@ -82,7 +82,7 @@ git clone https://github.com/RodrigoMartinezCasau/tictactoe-algorithms.git
 
 2. Navigate to the source folder:
 
-cd tictactoe-algorithms/src
+cd ~/tictactoe-algorithms/src
 
 3. Run the game:
 
