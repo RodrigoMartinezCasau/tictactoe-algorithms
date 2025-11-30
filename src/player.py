@@ -1,8 +1,20 @@
-class Player:
-    def __init__(self, name, symbol):
-        self.name = name
-        self.symbol = symbol
-        self.wins = 0
+# player.py
 
-    def __str__(self):
-        return f"{self.name} ({self.symbol})"
+class Player:
+    def __init__(self, symbol):
+        self.symbol = symbol
+
+    def make_move(self, board):
+        size = board.size
+        while True:
+            try:
+                row = int(input(f"Row (1-{size}): ")) - 1
+                col = int(input(f"Col (1-{size}): ")) - 1
+            except ValueError:
+                print("Please enter numbers.")
+                continue
+
+            if board.make_move(row, col, self.symbol):
+                break
+            else:
+                print("Invalid move, try again.")

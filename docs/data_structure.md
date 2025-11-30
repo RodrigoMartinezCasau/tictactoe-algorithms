@@ -1,85 +1,104 @@
 # Data Structures Used
 
-## 1. 2D Matrix (List of Lists)
+This project combines several fundamental data structures studied in the course.
 
-The game board is represented using a 3×3 matrix:
+---
 
-- Each row is a list.
-- The board is a list containing three row lists.
-- This structure allows intuitive access with `board[row][col]`.
+## 1. Multidimensional Arrays (Board Representation)
+
+The board is represented as a list of lists in Python:
+
+- The outer list stores rows.
+- Each inner list stores the symbols in that row.
+- A cell is accessed as `grid[row][col]`.
+
+Properties:
+
+- N×N structure where N can be chosen by the user (between 3 and 7 in Player vs Player mode).
+- Easy to iterate over rows, columns and diagonals.
+- Direct mapping to the concept of multidimensional arrays.
+
+---
+
+## 2. Classes and Encapsulation
+
+The implementation uses three main classes:
+
+### Board
+
+Responsibilities:
+
+- Store the N×N grid.
+- Place moves at a given row and column.
+- Check for a winner (rows, columns, diagonals).
+- Detect whether the board is full.
+
+This class encapsulates all operations that modify or inspect the state of the board.
+
+### Game
+
+Responsibilities:
+
+- Manage the flow of a match.
+- Configure the mode:
+  - Player vs AI (fixed 3×3 board).
+  - Player vs Player (board size 3–7).
+- Ask the user for moves and validate input.
+- Connect the `Board` and `AI` classes.
+
+The `Game` class implements the high-level logic of the program but delegates the real work to `Board` and `AI`.
+
+### AI
+
+Responsibilities:
+
+- Run the minimax algorithm to choose the best move on a 3×3 board.
+- Evaluate terminal positions (win, loss, draw).
+- Optionally cache positions in a hash table (memoization).
+
+This clearly separates human logic (user input) from algorithmic decision making.
+
+---
+
+## 3. Hash Tables (Dictionaries) – Optional Memoization
+
+To speed up minimax, a hash table can be used.  
+In Python this is implemented as a dictionary:
+
+- Keys are string encodings of the board plus the active player.
+- Values are the minimax scores previously computed.
 
 Advantages:
-- Fast indexing.
-- Easy to visualize.
-- Matches the layout of the game.
+
+- Avoids recomputing the same position many times.
+- Demonstrates the use of hash tables for caching results.
 
 ---
 
-## 2. Player Class
+## 4. Call Stack and Recursion
 
-Each player is represented as an object containing:
-- A name.
-- A symbol (“X” or “O”).
+The minimax algorithm is implemented recursively.  
+Each recursive call stores on the call stack:
 
-This abstraction improves readability and modularity.
+- The current board configuration.
+- The current player.
+- The depth in the game tree.
 
----
+When a terminal state is reached, the function returns a score and the call stack is unwound, propagating the best scores upwards.
 
-## 3. Board Class
+This connects the project to:
 
-The Board class stores:
-- The 3×3 grid.
-- Methods to place marks.
-- Methods to reset the grid.
-- A method to check if the board is full.
-
-It acts as an Abstract Data Type managing the game state.
+- Recursion
+- The role of the call stack
+- Depth-first search on trees
 
 ---
 
-## 4. Game Class
+## 5. Simple Sequential Search
 
-The Game class connects components:
-- Keeps track of the current player.
-- Validates moves.
-- Checks for end-state conditions.
-- Manages turn switching.
+Winner detection and free-cell detection rely on sequential scans:
 
-Acts as the controller of the system.
+- Checking each row or column cell by cell.
+- Checking all board cells to know if the game is a draw.
 
----
-
-## 5. Algorithms as Separate Functions
-
-Winner-detection logic is stored in standalone functions inside `algorithms.py`.
-
-Advantages:
-- Cleaner code.
-- Easier testing.
-- Independent from the Game and Board logic.
-
----
-
-## 6. Alternatives Considered
-
-### A. Dictionary-Based Board
-Rejected because a matrix better represents spatial layout.
-
-### B. Single List of 9 Cells
-Possible, but less readable than a 2D matrix.
-
-### C. Graph Representation
-Too complex for a 3×3 board.
-
-### D. Sets for Win Conditions
-Possible, but less clear for diagonals.
-
----
-
-## Conclusion
-
-The chosen structures (matrix + classes + modular functions) create:
-- Clear architecture.
-- Efficient algorithms.
-- Easy maintainability.
-- Perfect educational value for an Algorithms & Data Structures project.
+These operations are examples of linear scans over arrays with O(N) or O(N²) time complexity.

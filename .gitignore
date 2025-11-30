@@ -1,42 +1,13 @@
-# ---- Python ----
+# Byte-compiled files
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
 
-# ---- Virtual environments ----
-env/
-venv/
-.venv/
-
-# ---- Distribution / packaging ----
-build/
-dist/
-*.egg-info/
-*.egg
-
-# ---- IDE / Editor ----
+# VSCode settings
 .vscode/
-.idea/
 
-# ---- MacOS junk ----
+# MacOS system files
 .DS_Store
 
-# ---- Byte-compiled / optimized files ----
-*.so
-
-# ---- Logs ----
-*.log
-
-# ---- Unit test cache ----
-.pytest_cache/
-.coverage
-htmlcov/
-
-# ---- Ignore local environment files ----
-.env
-*.env
-
-# ---- Backup files ----
-*.bak
-*.swp
-*.swo
+# Virtual environments
+venv/
+env/

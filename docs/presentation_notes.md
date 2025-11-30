@@ -1,67 +1,98 @@
-# Presentation Notes – Tic-Tac-Toe Project
+# Presentation Notes
 
-## 1. Game Demo (2–3 minutes)
-
-- Show the terminal version running.
-- Demonstrate:
-  - Placing moves.
-  - Turn switching.
-  - Winner detection.
-  - Draw state.
+These notes are intended as a guide for the oral presentation of the project.
 
 ---
 
-## 2. Implementation Details
+## Slide 1 – Overview
 
-### A. Components of the Project
+- Our project is a TicTacToe game implemented in Python.
+- It has two main modes:
+  - Player vs AI (3×3 board, using minimax).
+  - Player vs Player (board size between 3 and 7).
+- The code is written using classes: `Board`, `Game` and `AI`.
 
-1. **Board (board.py)**
-   - Implements a 3×3 matrix using a list of lists.
-   - Methods: `place`, `reset`, `is_full`, and visual rendering.
-
-2. **Player (player.py)**
-   - Stores the player name and symbol (“X” or “O”).
-
-3. **Algorithms (algorithms.py)**
-   - Winner detection:
-     - Row check.
-     - Column check.
-     - Diagonal check.
-   - All in constant time O(1).
-
-4. **Game Engine (game.py)**
-   - Controls gameplay:
-     - Turn switching.
-     - Move validation.
-     - Checking game state.
-
-5. **main.py**
-   - Terminal interface that allows interactive gameplay.
+Key sentence to say:
+> The main idea was to take a very simple game and use it as a playground to connect many topics from the Algorithms & Data Structures course.
 
 ---
 
-### B. Algorithms and Data Structures Used
+## Slide 2 – Key Algorithms
 
-- 2D matrix implementation.
-- Row/column/diagonal scanning.
-- Constant-time checks for winner detection.
-- Classes used as abstract data types (Board, Player, Game).
-- Modular separation: logic, data, algorithms.
+Bullet points to mention:
 
----
+- Minimax algorithm for AI decision making.
+- Winner detection in O(N²) by scanning rows, columns and diagonals.
+- Depth-first search through the game tree using recursion.
+- Optional memoization using a hash table to store evaluated positions.
 
-## 3. Why This Implementation?
-
-- Clean and modular design.
-- Easy to maintain and extend.
-- Algorithms run efficiently in O(1).
-- Ideal for small grid board games.
+Possible explanation:
+> Minimax explores possible future moves, assuming both players play optimally, and chooses the move that maximizes the AI’s final outcome.
 
 ---
 
-## 4. Q&A Topics
+## Slide 3 – Data Structures
 
-- Why all winner checks are O(1).
-- How to scale to 4×4 or 5×5 boards.
-- Alternative data structures.
-- How an AI could be added.
+Points to highlight:
+
+- The board is an N×N multidimensional array (list of lists).
+- We use three classes:
+  - `Board`: manages the grid and winner detection.
+  - `Game`: controls turns, input and configuration.
+  - `AI`: runs minimax and returns the best move.
+- Recursion uses the call stack implicitly, which can be linked to the stacks topic.
+
+---
+
+## Slide 4 – Course Concepts Covered
+
+List of course topics that appear in the project:
+
+- Recursion (minimax).
+- DFS and trees (game tree exploration).
+- Multidimensional arrays (board).
+- Hash tables (memoization).
+- Sequential search (winner detection).
+- Algorithm analysis (complexity of minimax and board scanning).
+
+You can say:
+> With one small game we managed to touch almost every topic from the second half of the course.
+
+---
+
+## Slide 5 – Why AI Only on 3×3
+
+Key ideas:
+
+- Minimax has exponential complexity with respect to the number of cells.
+- The 3×3 board has around 255k possible game states.
+- For 5×5 or 7×7 the number of states explodes and would be too slow.
+
+Nice sentence:
+> The AI looks smart, but in reality it is just brutally exploring the whole game tree; that is why we keep it on a 3×3 board.
+
+---
+
+## Slide 6 – Demo Plan
+
+Suggested order:
+
+1. Run the program and choose Player vs AI.
+2. Show a couple of moves, highlighting that the AI never loses.
+3. Restart in Player vs Player mode and choose a larger board (for example 5×5).
+4. Briefly show that the logic still works for different sizes.
+
+---
+
+## Slide 7 – Conclusion
+
+Points to close the presentation:
+
+- The project combines theory (algorithms and data structures) with a concrete game.
+- It demonstrates how recursion, trees, hash tables and arrays can be used together.
+- Possible future improvements:
+  - Better evaluation functions for non-terminal states.
+  - A graphical user interface using a library like `game2board` or similar.
+
+Final line:
+> Overall, TicTacToe turned out to be a very good excuse to practice real algorithms instead of just solving abstract exercises.

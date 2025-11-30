@@ -1,52 +1,92 @@
-# Algorithm Explanations
+# Algorithms Explanation
 
-## 1. Row Winner Check
+This project implements several key algorithms from the Algorithms & Data Structures course.
 
-A row is a winning row if all its three cells contain the same symbol and are not empty.
+## 1. Minimax (AI Player)
 
-Complexity: O(1)
+Minimax is a recursive decision-making algorithm used in game theory.  
+In this project it is used for the AI on a 3×3 board.
 
----
+Main ideas:
 
-## 2. Column Winner Check
+- The AI assumes that the opponent always plays optimally.
+- The game tree is explored with depth-first search (DFS).
+- Each terminal position is evaluated as:
+  - +1 if the AI wins
+  - −1 if the AI loses
+  - 0 for a draw
+- The AI chooses the move that maximizes its final score.
 
-A column is a winning column if the three cells in that column match and are not empty.
+This directly connects to:
 
-Complexity: O(1)
+- Recursion
+- Trees
+- DFS (Depth First Search)
+- Algorithm analysis (exponential time on large boards)
 
----
+### Complexity
 
-## 3. Diagonal Winner Check
+On a 3×3 board the branching factor is at most 9 moves at the first level and then decreases.  
+The full game tree has around 255k states, which is still manageable.
 
-Two diagonals are checked:
-
-- Main diagonal: (0,0), (1,1), (2,2)
-- Secondary diagonal: (0,2), (1,1), (2,0)
-
-A diagonal is a winning diagonal if all three positions match.
-
-Complexity: O(1)
-
----
-
-## 4. Board Full Check
-
-Checks if the board has any empty spaces left.  
-Since the board is always 3×3, the operation is constant.
-
-Complexity: O(1)
+For bigger boards the number of possible positions grows exponentially, so running full minimax becomes impractical. That is why the AI mode is restricted to 3×3.
 
 ---
 
-## 5. Turn Switching
+## 2. Winner Detection
 
-Turns alternate using a simple toggle between two Player instances.
+The board is an N×N grid stored as a list of lists.  
+The algorithm to detect a winner checks:
 
-Complexity: O(1)
+- All rows
+- All columns
+- The main diagonal
+- The anti-diagonal
+
+For each line, the algorithm verifies that:
+
+- All cells are equal.
+- None of the cells is the empty symbol.
+
+If this happens, that symbol is the winner.  
+If all cells on the board are filled and there is no winning line, the result is a draw.
+
+Time complexity:
+
+- Checking a single line: O(N)
+- Checking all lines on the board: O(N²)
 
 ---
 
-## Summary
+## 3. DFS on the Game Tree
 
-All core game algorithms run in **constant time O(1)** due to the fixed size of the grid (3×3).  
-This guarantees optimal performance for the board game logic.
+Minimax uses depth-first search implicitly:
+
+1. Choose a move.
+2. Apply the move and recurse on the new board.
+3. Explore until a terminal state is reached.
+4. Backtrack and propagate scores up the tree.
+
+This process continues until all candidate moves at the top level have an associated score and the best move can be chosen.
+
+This covers:
+
+- Trees as implicit data structures (game states + transitions).
+- DFS traversal using recursion and the call stack.
+
+---
+
+## 4. Memoization (Hash Table) – Optional Improvement
+
+As an optimisation, the minimax algorithm can use a hash table (Python dictionary) to remember already evaluated positions.
+
+- Key: a string representation of the board and the current player.
+- Value: the computed minimax score for that position.
+
+If the same position appears again during the search, the stored score is reused instead of recomputing it.
+
+This connects minimax to:
+
+- Hash tables
+- Dynamic programming (top-down memoization)
+- Reducing time complexity at the cost of extra memory

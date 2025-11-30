@@ -1,41 +1,76 @@
+# game.py
+
 from board import Board
 from player import Player
-from algorithms import check_winner
+from ai import AI
 
-class TicTacToe:
-    def __init__(self, size=3):
-        self.board = Board(size)
-        self.player1 = Player("Player 1", "X")
-        self.player2 = Player("Player 2", "O")
-        self.current = self.player1
+class Game:
+    def __init__(self, vs_ai: bool):
+        self.vs_ai = vs_ai
+        self.board = None
+        self.current_symbol = 'X'
+        self.player_x = None
+        self.player_o = None
+        self.ai = None
 
-    def switch(self):
-        self.current = (
-            self.player2 if self.current == self.player1
-            else self.player1
-        )
+        if vs_ai:
+            # tablero fijo 3x3 para IA
+            self.board = Board(3)
+            first = input("Do you want to go first? (y/n): ").strip().lower()
+            if first == 'y':
+                self.player_x = Player('X')
+                self.ai = AI('O')
+                self.player_o = None
+            else:
+                self.player_x = None
+                self.ai = AI('X')
+                self.player_o = Player('O')
+        else:
+            # jugador vs jugador, tamaño 3-7
+            size = 0
+            while size < 3 or size > 7:
+                try:
+                    size = int(input("Choose board size (3-7): "))
+                except ValueError:
+                    print("Please enter a number.")
+            self.board = Board(size)
+            self.player_x = Player('X')
+            self.player_o = Player('O')
 
-    def play_turn(self, row, col):
-        """
-        Intenta jugar un turno. Devuelve True si ok, False si casilla ocupada.
-        """
-        return self.board.place(row, col, self.current.symbol)
+    def switch_turn(self):
+        self.current_symbol = 'O' if self.current_symbol == 'X' else 'X'
 
-    def check_state(self):
-        """
-        Devuelve:
-        - 'X' o 'O' si hay ganador
-        - 'draw' si hay empate
-        - None si el juego sigue
-        """
-        winner = check_winner(self.board)
-        if winner:
-            return winner
+    def play(self):
+        while True:
+            print("\nCurrent board:")
+            print(self.board)
 
-        if self.board.is_full():
-            return "draw"
+            winner = self.board.check_winner()
+            if winner:
+                print(f"Player {winner} wins!")
+                break
 
-        return None
+            if self.board.is_full():
+                print("It's a draw!")
+                break
 
-    def __str__(self):
-        return str(self.board)
+            if self.vs_ai:
+                # IA mode
+                if self.current_symbol == 'X':
+                    if self.player_x is not None:
+                        self.player_x.make_move(self.board)
+                    else:
+                        self.ai.make_move(self.board)
+                else:
+                    if self.player_o is not None:
+                        self.player_o.make_move(self.board)
+                    else:
+                        self.ai.make_move(self.board)
+            else:
+                # human vs human
+                if self.current_symbol == 'X':
+                    self.player_x.make_move(self.board)
+                else:
+                    self.player_o.make_move(self.board)
+
+            self.switch_turn()

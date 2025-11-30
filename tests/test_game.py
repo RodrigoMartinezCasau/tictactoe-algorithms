@@ -1,53 +1,54 @@
 import unittest
-from game import TicTacToe
+from src.board import Board
+from src.game import Game
 
 class TestTicTacToe(unittest.TestCase):
 
     def test_empty_board(self):
-        game = TicTacToe()
-        self.assertEqual(game.check_state(), None)
+        b = Board(3)
+        for row in b.grid:
+            self.assertEqual(row.count(' '), 3)
+
+    def test_place_move(self):
+        b = Board(3)
+        b.place_move(0, 0, 'X')
+        self.assertEqual(b.grid[0][0], 'X')
 
     def test_row_win(self):
-        game = TicTacToe()
-        game.play_turn(0, 0)
-        game.play_turn(1, 0)
-        game.play_turn(0, 1)
-        game.play_turn(1, 1)
-        game.play_turn(0, 2)
-        self.assertEqual(game.check_state(), "X")
+        b = Board(3)
+        b.grid = [
+            ['X', 'X', 'X'],
+            [' ', 'O', ' '],
+            ['O', ' ', ' ']
+        ]
+        self.assertEqual(b.check_winner(), 'X')
 
     def test_column_win(self):
-        game = TicTacToe()
-        game.play_turn(0, 0)
-        game.play_turn(0, 1)
-        game.play_turn(1, 0)
-        game.play_turn(1, 1)
-        game.play_turn(2, 0)
-        self.assertEqual(game.check_state(), "X")
+        b = Board(3)
+        b.grid = [
+            ['O', 'X', ' '],
+            ['O', 'X', ' '],
+            ['O', ' ', 'X']
+        ]
+        self.assertEqual(b.check_winner(), 'O')
 
     def test_diagonal_win(self):
-        game = TicTacToe()
-        game.play_turn(0, 0)
-        game.play_turn(0, 1)
-        game.play_turn(1, 1)
-        game.play_turn(0, 2)
-        game.play_turn(2, 2)
-        self.assertEqual(game.check_state(), "X")
-
-    def test_draw(self):
-        game = TicTacToe()
-        moves = [
-            (0,0), (0,1),
-            (0,2), (1,1),
-            (1,0), (1,2),
-            (2,0), (2,2),
-            (2,1)
+        b = Board(3)
+        b.grid = [
+            ['X', 'O', ' '],
+            ['O', 'X', ' '],
+            [' ', ' ', 'X']
         ]
-        for r, c in moves:
-            game.play_turn(r, c)
-            game.switch()
+        self.assertEqual(b.check_winner(), 'X')
 
-        self.assertEqual(game.check_state(), "draw")
+    def test_no_win(self):
+        b = Board(3)
+        b.grid = [
+            ['X', 'O', 'X'],
+            ['O', 'X', 'O'],
+            ['O', 'X', 'O']
+        ]
+        self.assertIsNone(b.check_winner())
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
