@@ -1,4 +1,4 @@
-# player.py
+# Each player gets to choose the position by indicating the cordinates of the move 
 
 class Player:
     def __init__(self, symbol):

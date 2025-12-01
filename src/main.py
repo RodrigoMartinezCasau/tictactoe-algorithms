@@ -1,7 +1,8 @@
-# main.py
+
 
 from game import Game
 
+# starting output to determine the game conditions 
 def main():
     print("TicTacToe")
     print("1. Player vs AI (board 3x3)")
