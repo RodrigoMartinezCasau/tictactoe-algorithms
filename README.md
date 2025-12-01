@@ -27,3 +27,8 @@ From the root folder:
 ```bash
 cd tictactoe-algorithms
 python3 src/main.py
+
+Or for the GUI mode:
+```bash
+cd tictactoe-algorithms
+python3 tictactoe_gui.py
