@@ -6,10 +6,12 @@ from math import inf
 
 
 class AI:
+    # Timecomplexity: O(1)
     def __init__(self, symbol):
         self.symbol = symbol
         self.opponent = 'O' if symbol == 'X' else 'X'
 
+    # Timecomplexity: O((n2)!)
     def minimax(self, board, is_maximizing):
         # Check for the best posible move 
         winner = board.check_winner()
@@ -40,6 +42,7 @@ class AI:
             return best_score
         
     # Here we evaluate the best possible moves 
+    # Timecomplexity: O((n^2 * (n^2)!)
     def best_move(self, board):
         best_score = -inf
         move = None
@@ -53,6 +56,7 @@ class AI:
         return move
     
     # Minimax chooses its best move 
+    # Timecomplexity: O(n^2 * (n^2)!)
     def make_move(self, board):
         r, c = self.best_move(board)
         board.make_move(r, c, self.symbol)

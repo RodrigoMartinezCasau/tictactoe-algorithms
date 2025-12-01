@@ -3,6 +3,7 @@
 from game import Game
 
 # starting output to determine the game conditions 
+# Timecomplexity: AI- O(1) / PvP- O(n^4)
 def main():
     print("TicTacToe")
     print("1. Player vs AI (board 3x3)")

@@ -3,10 +3,12 @@
 # board works by checking if the previous element is equal to the following O(n)
 
 class Board:
+    # Timecomplexity: O(n^2)
     def __init__(self, size):
         self.size = size
         self.grid = [[' ' for _ in range(size)] for _ in range(size)]
 
+    # Timecomplexity: O(1)
     def make_move(self, row, col, symbol):
         if 0 <= row < self.size and 0 <= col < self.size:
             if self.grid[row][col] == ' ':
@@ -15,6 +17,7 @@ class Board:
         return False
     
     # Check for full board in case there is a draw
+    # Timecomplexity: O(n^2)
     def is_full(self): 
         for row in self.grid:
             for cell in row:
@@ -23,6 +26,7 @@ class Board:
         return True
     
     # Check if cell is empty, then add the input
+    # Timecomplexity: O(n^2)
     def get_empty_cells(self):
         empty = []
         for r in range(self.size):
@@ -33,6 +37,7 @@ class Board:
     
     # Checks for each one of possible winning ways
     # Does it by going through each cell since the board size is notnfixed
+    # Timecomplexity: O(n^2)
     def check_winner(self):
         n = self.size
         g = self.grid
@@ -87,6 +92,7 @@ class Board:
         return None
     
     # Simply to determine the indexes of the number of rows and collums 
+    # Timecomplexity: O(n^2)
     def __str__(self):
         result = "   " + " ".join(str(i + 1) for i in range(self.size)) + "\n"
         for i, row in enumerate(self.grid): # enumerate to split the value and the index 

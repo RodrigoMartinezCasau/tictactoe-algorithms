@@ -1,9 +1,11 @@
 # Each player gets to choose the position by indicating the cordinates of the move 
 
 class Player:
+    # Timecomplexity: O(1)
     def __init__(self, symbol):
         self.symbol = symbol
 
+    # Timecomplexity: O(1)
     def make_move(self, board):
         size = board.size
         while True:

@@ -18,6 +18,7 @@ class Game:
         self.ai = None
 
         # If the player selects the AI mode:
+        # Timecomplexity: O(1)
         if vs_ai:
             # board 3x3 for IA (if bigger, too many possibilities for the AI to think)
             self.board = Board(3)
@@ -33,6 +34,7 @@ class Game:
                 self.player_o = Player('O')
 
         # if AI not chosen, board size can be selected - Ask the user
+        # Timecomplexity: O(n^2)
         else:
             size = 0
             while size < 3 or size > 7:
@@ -45,10 +47,12 @@ class Game:
             self.player_o = Player('O')
             
     # After one play by one user, the other gets to move        
+    # Timecomplexity: O(1)
     def switch_turn(self):
         self.current_symbol = 'O' if self.current_symbol == 'X' else 'X'
 
     # Play the game updating the board and checking for winners, or a draw!    
+    # Timecomplexity: O(n^4 * (n^2)!)
     def play(self):
         while True:
             print("\nCurrent board:")
